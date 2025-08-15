@@ -99,18 +99,15 @@ const AboutUs = () => {
             </h3>
             <div className="space-y-4 text-gray-300 font-abeze leading-relaxed">
               <p>
-                Founded in 2014, Mufasa Wildlife began with a simple mission: to connect people with Sri Lanka's incredible wildlife 
-                while ensuring their protection. What started as a small family operation has grown into one of Sri Lanka's most 
-                trusted wildlife tourism companies.
+              Founded in 2014, Wild Path was born from a simple yet powerful vision: to create unforgettable journeys that connect people with the breathtaking wildlife of Sri Lanka, while fiercely protecting the wonders we cherish. What began as a humble family-run safari experience has grown into one of the most trusted and respected wildlife tourism companies in the country—yet our heart remains as wild and authentic as the day we started.
               </p>
               <p>
-                Our founder, Kumara Perera, grew up in the shadow of Yala National Park, developing a deep connection with the 
-                island's wildlife from an early age. This personal connection drives our commitment to conservation and responsible tourism.
+              Our founder, Kumara Perera, grew up in the gentle rhythms and raw beauty of life beside Yala National Park. From the distant call of a peacock at dawn to the quiet footsteps of an elephant at dusk, these moments became part of his soul. His deep respect for nature shapes everything we do, guiding us toward a model of conservation-led, responsible tourism that protects what we love most.
               </p>
               <p>
-                Today, we work with local communities, conservation experts, and government agencies to create sustainable wildlife 
-                experiences that benefit both visitors and the natural world they come to explore.
+              Today, Wild Path is more than just safaris—it’s a bridge between people and the wild. We collaborate with local communities, conservationists, and government agencies to ensure every journey leaves a positive footprint. Our guests don’t just witness Sri Lanka’s wildlife; they become part of a story that helps preserve it for generations to come.
               </p>
+              <p>From the misty highlands to the golden coastal plains, we invite you to walk the wild path with us—where every adventure tells a story, and every story leaves the wild a little stronger.</p>
             </div>
           </div>
           <div className="bg-gradient-to-br from-green-600/20 to-green-400/20 backdrop-blur-sm rounded-2xl p-8 border border-green-400/30">
