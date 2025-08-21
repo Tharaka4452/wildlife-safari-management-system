@@ -22,6 +22,9 @@ import DonationDetailsPage from './pages/DonationDetailsPage'
 import DonationSuccessPage from './pages/DonationSuccessPage'
 import DonationCancelledPage from './pages/DonationCancelledPage'
 import GalleryPage from './pages/GalleryPage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import TermsOfServicePage from './pages/TermsOfServicePage'
+import CookiePolicyPage from './pages/CookiePolicyPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import ProtectedAdminRoute from './components/ProtectedAdminRoute'
 import ProtectedStaffRoute from './components/ProtectedStaffRoute'
@@ -101,6 +104,9 @@ function App() {
                   <TourGuideDashboard />
                 </ProtectedStaffRoute>
               } />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+              <Route path="/cookie-policy" element={<CookiePolicyPage />} />
             </Routes>
             <ChatbotWrapper />
           </div>
