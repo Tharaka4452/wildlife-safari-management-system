@@ -636,12 +636,37 @@ const Attendance = () => {
           
           <div>
             <label className="block text-gray-300 font-abeze text-sm mb-2">Date</label>
-            <input
-              type="date"
-              value={formData.date}
-              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-              className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white font-abeze focus:outline-none focus:border-blue-500"
-            />
+            <div className="flex space-x-2">
+              <input
+                type="date"
+                value={formData.date}
+                onChange={(e) => {
+                  const newDate = e.target.value;
+                  setFormData({ 
+                    ...formData, 
+                    date: newDate,
+                    checkInDate: newDate,
+                    checkOutDate: newDate
+                  });
+                }}
+                className="flex-1 bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white font-abeze focus:outline-none focus:border-blue-500"
+              />
+              <button
+                onClick={() => {
+                  const today = new Date().toISOString().split('T')[0];
+                  setFormData({ 
+                    ...formData, 
+                    date: today,
+                    checkInDate: today,
+                    checkOutDate: today
+                  });
+                }}
+                className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-lg font-abeze font-medium transition-colors duration-300 text-sm"
+                title="Reset to today"
+              >
+                Today
+              </button>
+            </div>
           </div>
           
           <div className="flex items-end space-x-2">
@@ -651,10 +676,14 @@ const Attendance = () => {
                   alert('Please select a staff member');
                   return;
                 }
+                if (!formData.date) {
+                  alert('Please select a date');
+                  return;
+                }
                 try {
                   await attendanceApi.checkIn({
                     staffId: formData.staffId,
-                    date: formData.checkInDate,
+                    date: formData.date,
                     location: 'Office'
                   });
                   loadAttendance();
@@ -676,10 +705,14 @@ const Attendance = () => {
                   alert('Please select a staff member');
                   return;
                 }
+                if (!formData.date) {
+                  alert('Please select a date');
+                  return;
+                }
                 try {
                   await attendanceApi.checkOut({
                     staffId: formData.staffId,
-                    date: formData.checkOutDate,
+                    date: formData.date,
                     location: 'Office'
                   });
                   loadAttendance();

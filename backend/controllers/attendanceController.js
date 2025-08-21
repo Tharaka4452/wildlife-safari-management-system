@@ -9,7 +9,10 @@ const getAllAttendance = async (req, res) => {
       .populate('approvedBy', 'firstName lastName')
       .sort({ date: -1 });
     
-    res.json(attendance);
+    // Filter out records with null staffId (orphaned records)
+    const validAttendance = attendance.filter(a => a.staffId && a.staffId._id);
+    
+    res.json(validAttendance);
   } catch (error) {
     console.error('Error fetching attendance:', error);
     res.status(500).json({ message: 'Internal server error' });
@@ -70,7 +73,10 @@ const getAttendanceByDateRange = async (req, res) => {
       .populate('approvedBy', 'firstName lastName')
       .sort({ date: -1 });
     
-    res.json(attendance);
+    // Filter out records with null staffId (orphaned records)
+    const validAttendance = attendance.filter(a => a.staffId && a.staffId._id);
+    
+    res.json(validAttendance);
   } catch (error) {
     console.error('Error fetching attendance by date range:', error);
     res.status(500).json({ message: 'Internal server error' });

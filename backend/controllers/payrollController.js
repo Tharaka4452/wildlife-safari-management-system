@@ -134,7 +134,11 @@ const generatePayroll = async (req, res) => {
       }
     }).populate('staffId');
     
+    // Filter out any attendance records with null staffId (orphaned records)
+    const validAttendanceData = attendanceData.filter(a => a.staffId && a.staffId._id);
+    
     console.log('Total attendance records found:', attendanceData.length);
+    console.log('Valid attendance records (with staffId):', validAttendanceData.length);
     if (attendanceData.length > 0) {
       console.log('Attendance data sample:', attendanceData.slice(0, 2).map(a => ({
         id: a._id,
@@ -170,7 +174,7 @@ const generatePayroll = async (req, res) => {
       }
       
       // Calculate working hours for this staff member
-      const memberAttendance = attendanceData.filter(a => 
+      const memberAttendance = validAttendanceData.filter(a => 
         a.staffId._id.toString() === member._id.toString()
       );
       
