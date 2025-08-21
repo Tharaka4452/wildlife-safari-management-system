@@ -66,10 +66,20 @@ const TravelPackagesPage = () => {
 
   const handleRequestFormChange = (e) => {
     const { name, value } = e.target;
-    setRequestFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    
+    // Handle phone number input - only allow numbers
+    if (name === 'phone') {
+      const numericValue = value.replace(/\D/g, '').slice(0, 10);
+      setRequestFormData(prev => ({
+        ...prev,
+        [name]: numericValue
+      }));
+    } else {
+      setRequestFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
 
     // Clear error when user starts typing
     if (requestFormErrors[name]) {
@@ -94,6 +104,28 @@ const TravelPackagesPage = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (requestFormData.email && !emailRegex.test(requestFormData.email)) {
       newErrors.email = 'Please enter a valid email address';
+    }
+
+    // Phone number validation - must be exactly 10 digits
+    const phoneRegex = /^\d{10}$/;
+    if (requestFormData.phone && !phoneRegex.test(requestFormData.phone)) {
+      newErrors.phone = 'Phone number must be exactly 10 digits';
+    }
+
+    // Group size validation - must be numbers only
+    const numberRegex = /^\d+$/;
+    if (requestFormData.groupSize && !numberRegex.test(requestFormData.groupSize.trim())) {
+      newErrors.groupSize = 'Group size must be a number only';
+    }
+
+    // Duration validation - must be numbers only
+    if (requestFormData.duration && !numberRegex.test(requestFormData.duration.trim())) {
+      newErrors.duration = 'Duration must be a number only';
+    }
+
+    // Budget validation - must be numbers only (if provided)
+    if (requestFormData.budget && !numberRegex.test(requestFormData.budget.trim())) {
+      newErrors.budget = 'Budget must be a number only';
     }
 
     setRequestFormErrors(newErrors);
@@ -437,6 +469,8 @@ const TravelPackagesPage = () => {
                             requestFormErrors.phone ? 'border-red-400' : 'border-white/20 focus:border-green-400'
                           }`}
                           placeholder={t('packages.requestForm.placeholders.phone')}
+                          maxLength="10"
+                          pattern="[0-9]{10}"
                         />
                         {requestFormErrors.phone && (
                           <p className="text-red-400 text-sm mt-1 font-abeze">{requestFormErrors.phone}</p>
@@ -472,7 +506,7 @@ const TravelPackagesPage = () => {
                           {t('packages.requestForm.groupSize')}
                         </label>
                         <input
-                          type="text"
+                          type="number"
                           name="groupSize"
                           value={requestFormData.groupSize}
                           onChange={handleRequestFormChange}
@@ -480,6 +514,7 @@ const TravelPackagesPage = () => {
                             requestFormErrors.groupSize ? 'border-red-400' : 'border-white/20 focus:border-green-400'
                           }`}
                           placeholder={t('packages.requestForm.placeholders.group')}
+                          min="1"
                         />
                         {requestFormErrors.groupSize && (
                           <p className="text-red-400 text-sm mt-1 font-abeze">{requestFormErrors.groupSize}</p>
@@ -491,7 +526,7 @@ const TravelPackagesPage = () => {
                           {t('packages.requestForm.duration')}
                         </label>
                         <input
-                          type="text"
+                          type="number"
                           name="duration"
                           value={requestFormData.duration}
                           onChange={handleRequestFormChange}
@@ -499,6 +534,7 @@ const TravelPackagesPage = () => {
                             requestFormErrors.duration ? 'border-red-400' : 'border-white/20 focus:border-green-400'
                           }`}
                           placeholder={t('packages.requestForm.placeholders.duration')}
+                          min="1"
                         />
                         {requestFormErrors.duration && (
                           <p className="text-red-400 text-sm mt-1 font-abeze">{requestFormErrors.duration}</p>
@@ -517,13 +553,19 @@ const TravelPackagesPage = () => {
                           {t('packages.requestForm.budget')}
                         </label>
                         <input
-                          type="text"
+                          type="number"
                           name="budget"
                           value={requestFormData.budget}
                           onChange={handleRequestFormChange}
-                          className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white font-abeze placeholder-gray-400 focus:outline-none focus:border-green-400 transition-colors"
+                          className={`w-full bg-white/10 border rounded-lg px-4 py-3 text-white font-abeze placeholder-gray-400 focus:outline-none transition-colors ${
+                            requestFormErrors.budget ? 'border-red-400' : 'border-white/20 focus:border-green-400'
+                          }`}
                           placeholder={t('packages.requestForm.placeholders.budget')}
+                          min="0"
                         />
+                        {requestFormErrors.budget && (
+                          <p className="text-red-400 text-sm mt-1 font-abeze">{requestFormErrors.budget}</p>
+                        )}
                       </div>
 
                       <div>
