@@ -196,8 +196,32 @@ export const deleteStaff = async (req, res, next) => {
       return res.status(404).json({ message: "Staff not found" });
     }
 
+    // Import required models for cleanup
+    const Attendance = (await import("../models/Attendance.js")).default;
+    const Payroll = (await import("../models/Payroll.js")).default;
+    const Booking = (await import("../models/Booking.js")).default;
+
+    // Clean up related records before deleting staff
+    await Promise.all([
+      // Delete attendance records
+      Attendance.deleteMany({ staffId: req.params.id }),
+      // Delete payroll records
+      Payroll.deleteMany({ staffId: req.params.id }),
+      // Remove staff assignments from bookings
+      Booking.updateMany(
+        { assignedDriver: req.params.id },
+        { $unset: { assignedDriver: "" } }
+      ),
+      Booking.updateMany(
+        { assignedTourGuide: req.params.id },
+        { $unset: { assignedTourGuide: "" } }
+      )
+    ]);
+
+    // Now delete the staff member
     await Staff.findByIdAndDelete(req.params.id);
-    return res.json({ message: "Staff deleted successfully" });
+    
+    return res.json({ message: "Staff deleted successfully along with all related records" });
   } catch (err) {
     next(err);
   }
