@@ -184,7 +184,7 @@ expertise: "Elephant behavior, Hiking trails",
           {/* Values Section */}
           <div className="mb-20">
             <h3 className="text-3xl font-abeze font-bold text-white text-center mb-12">
-              {t('about.values.title')} <span className="text-green-400">Values</span>
+              {t('about.values.title')}
             </h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {values.map((value, index) => (
@@ -209,7 +209,7 @@ expertise: "Elephant behavior, Hiking trails",
           {/* Team Section */}
           <div className="mb-20">
             <h3 className="text-3xl font-abeze font-bold text-white text-center mb-12">
-              {t('about.team.title')} <span className="text-green-400">Team</span>
+              {t('about.team.title')}
             </h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {teamMembers.map((member, index) => (
@@ -240,7 +240,7 @@ expertise: "Elephant behavior, Hiking trails",
           {/* Achievements Section */}
           <div className="mb-16">
             <h3 className="text-3xl font-abeze font-bold text-white text-center mb-12">
-              {t('about.achievements.title')} <span className="text-green-400">Achievements</span>
+              {t('about.achievements.title')}
             </h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {achievements.map((achievement, index) => (
