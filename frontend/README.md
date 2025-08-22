@@ -1,4 +1,4 @@
-# Wildlife Safari Management System - Frontend
+# Wildlife Safari Management System
 
 A modern React application for managing wildlife safari experiences.
 
